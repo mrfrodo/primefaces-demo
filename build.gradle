@@ -18,6 +18,27 @@ allprojects {
     }
 }
 
+subprojects {
+    apply plugin: 'java'
+
+    dependencies {
+        testCompile 'junit:junit-dep:4.10'
+        testCompile 'org.hamcrest:hamcrest-library:1.2'
+
+        testCompile 'org.mockito:mockito-core:1.8.5'
+        testCompile ':objenesis:1.2'
+        testCompile ':cglib-nodep:2.2'
+        testCompile ':javassist:3.13.0.GA'
+        testCompile 'joda-time:joda-time:1.6.2'
+    }
+
+    configurations {
+        // we explicityly use junit-dep rather than junit
+        testCompile.exclude group: 'junit', module: 'junit'
+    }
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+
 task generateWrapper(type: Wrapper) {
     description = 'Generates the gradlew wrapper'
     gradleVersion = GRADLE_WRAPPER_VERSION
