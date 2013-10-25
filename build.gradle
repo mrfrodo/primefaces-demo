@@ -1,0 +1,27 @@
+project.ext {
+    GRADLE_WRAPPER_VERSION = '1.8'
+}
+
+allprojects {
+    apply plugin: 'idea'
+    group = 'no.mrfrodo'
+    version = '1.0.0-SNAPSHOT'
+    ext {
+        sourceCompatibility = '1.7'
+        targetCompatibility = '1.7'
+    }
+	
+	repositories {
+        maven {
+            url 'http://172.20.200.30/artifactory/libs-release/'
+        }
+    }
+}
+
+task generateWrapper(type: Wrapper) {
+    description = 'Generates the gradlew wrapper'
+    gradleVersion = GRADLE_WRAPPER_VERSION
+    distributionUrl = "http://services.gradle.org/distributions/gradle-${gradleVersion}-bin.zip"
+    jarFile = "${project.projectDir}/.gradle/wrapper/gradle-wrapper.jar"
+}
+
